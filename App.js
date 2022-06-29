@@ -2,6 +2,10 @@ import { FlatList, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Button from './components/Button';
 import tw from 'twrnc';
+import { useState } from 'react';
+import Display from './components/Display';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 const DATA = [
   {
@@ -47,7 +51,7 @@ const DATA = [
     textColor: 'text-white'
   },
   {
-    sign: 'X',
+    sign: '*',
     width: 'w-20',
     bgColor: 'bg-orange-400',
     textColor: 'text-white'
@@ -121,27 +125,29 @@ const DATA = [
 ]
 
 export default function App() {
+  const [input, setInput] = useState('');
+
   return (
-    <SafeAreaProvider style={tw`flex bg-neutral-900`}>
-      <View
-        style={tw`h-1/4`}
-      >
+    <Provider store={store}>
+      <SafeAreaProvider style={tw`flex bg-neutral-900`}>
+        <View
+          style={tw`h-1/4`}
+        >
+          <Display></Display>
+        </View>
+        <View
+          style={tw`h-3/4 flex flex-row flex-wrap justify-around mx-auto my-auto`}
+        >
+            {DATA.map(item =>
+              <Button item={item} key={item.sign} />
+            )}
 
-      </View>
-      <View
-        style={tw`h-3/4`}
-      >
-        <FlatList
-          data={DATA}
-          renderItem={Button}
-          keyExtractor={item => item.sign}
-          numColumns={4}
-          contentContainerStyle={tw`mx-auto my-auto`}
-        />
-      </View>
+        </View>
 
 
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+    </Provider>
+
   );
 }
 
