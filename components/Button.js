@@ -3,7 +3,7 @@ import React from 'react';
 import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const CircleButton = ({ item }) => {
+const Button = ({ item }) => {
 	return (
 		<SafeAreaView>
 			<TouchableHighlight
@@ -18,4 +18,4 @@ const CircleButton = ({ item }) => {
 	)
 };
 
-export default CircleButton;
+export default Button;
